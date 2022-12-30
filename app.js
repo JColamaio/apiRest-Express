@@ -10,7 +10,7 @@ res.send("hello world")
 app.get('/new-route', (req, res) => {
   res.send('im a new route')
 })
-//  products route
+//  products endpoint
 app.get('/products', (req, res) => {
   res.json([
     {
@@ -23,7 +23,20 @@ app.get('/products', (req, res) => {
     }
   ])
 })
-// ProductsId route
+// users endpoint
+app.get('/users', (req, res) => {
+const { limit, offset } = req.query;
+if (limit && offset) {
+  res.json( {
+    limit,
+    offset
+  });
+  } else {
+    res.send('No parameters found')
+  }
+})
+
+// ProductsId endpoint
 app.get('/products/:id',(req, res) => {
   const { id } = req.params.id
   res.json( {
@@ -32,7 +45,9 @@ app.get('/products/:id',(req, res) => {
     price: 1500
   })
 })
-// categories and products route
+
+
+// categories and products endpoint
 app.get('/categories/:categoryId/products/:productId', (req, res) => {
   const { categoryId, productId } = req.params;
   res.json({
@@ -40,6 +55,7 @@ app.get('/categories/:categoryId/products/:productId', (req, res) => {
     productId
   })
 } )
+
 // app listening on port
 app.listen(port, () => {
   console.log("server running on " + port);
