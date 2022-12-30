@@ -33,5 +33,10 @@ router.get('/:id', (req, res) => {
     price: 1500,
   });
 });
+// products post
+router.post('/', (req, res) => {
+  const body = req.body
+  res.json({message: 'created', data: body})
+})
 
 module.exports = router;
