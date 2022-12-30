@@ -26,17 +26,23 @@ router.get('/filter', (req, res) => {
 
 // ProductsId endpoint
 router.get('/:id', (req, res) => {
-  const { id } = req.params.id;
-  res.json({
-    id,
-    name: 'Product 2',
-    price: 1500,
-  });
+  const { id } = req.params;
+  if(id === 999){
+    res.status(404).json({
+      message: 'not found'
+    })
+  } else{
+    res.status(200).json({
+      id,
+      name: 'Product 2',
+      price: 1500,
+    });
+  }
 });
 // products post
 router.post('/', (req, res) => {
   const body = req.body
-  res.json({message: 'created', data: body})
+  res.status(201).json({message: 'created', data: body})
 })
 // products patch
 router.patch('/:id', (req, res) => {
