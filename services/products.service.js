@@ -5,7 +5,7 @@ class ProductsService {
     this.products = [];
     this.generate();
   }
-  generate() {
+  async generate() {
     const limit = 100;
     for (let i = 0; i < 100; i++) {
       this.products.push({
@@ -16,7 +16,7 @@ class ProductsService {
       });
     }
   }
-  create(data) {
+  async create(data) {
     const newProduct = {
       id: faker.datatype.uuid(),
       ...data
@@ -24,21 +24,25 @@ class ProductsService {
     this.products.push(newProduct)
     return newProduct
   }
-
-  find() {
-    return this.products;
+// making the methods asyncronous and adding a settimeout
+   find() {
+    return new Promise((resolve,reject) => {
+      setTimeout(() => {
+        resolve(this.products)
+      }, 5000)
+    })
   }
 
-  findOne() {
+  async findOne() {
     return this.products.find(item => item.id === id);
   }
 
-  update(id,changes) {
+  async update(id,changes) {
     const index = this.products.findIndex(item => item.id === id);
     if(index === -1){
       throw new Error('product not found')
     } else {
-      // defining the product like this, we can change only the price and not all the array
+      // by defining the product like this, we can change only the price and not all the array
       const product = this.products[index]
       this.products = {
         ...product,
@@ -48,7 +52,7 @@ class ProductsService {
     }
   }
 
-  delete(id) {
+  async delete(id) {
     const index = this.products.findIndex(item => item.id === id);
     if(index === -1){
       throw new Error('cant delete item');
