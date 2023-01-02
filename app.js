@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json())
+app.use(express.urlencoded({extended:false}));
 
 app.get('/', (req, res) => {
   res.send('hello world');
@@ -14,13 +15,12 @@ app.get('/', (req, res) => {
 app.get('/new-route', (req, res) => {
   res.send('im a new route');
 });
-
 //using routerApi(app)
 routerApi(app)
 
-// app.use(logErrors);
-// app.use(boomErrorHandler);
-// app.use(errorHandler);
+app.use(logErrors);
+app.use(boomErrorHandler);
+app.use(errorHandler);
 
 // app listening on port
 app.listen(port, () => {
