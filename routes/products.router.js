@@ -25,14 +25,13 @@ router.get('/filter', (req, res) => {
 })
 
 // ProductsId endpoint
-router.get('/:id',async (req, res) => {
+router.get('/:id',async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await service.findOne(id)
     res.json(product)
   } catch (error) {
-    res.status(400).json({message: error})
-  }
+      next(error)  }
 });
 // products post
 router.post('/', async (req, res) => {
@@ -64,7 +63,7 @@ router.delete('/:id', async(req, res) => {
     const resp = await service.delete(id)
     res.json(resp)
   } catch (error) {
-    res.status(400).json({message: error})
+    res.status(404).json({message: error})
   }
 })
 
