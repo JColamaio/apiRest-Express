@@ -26,12 +26,12 @@ class ProductsService {
     this.products.push(newProduct)
     return newProduct
   }
-// making the methods asyncronous and adding a settimeout
+// making the methods asynchronous and adding a setTimeout
    find() {
     return new Promise((resolve,reject) => {
       setTimeout(() => {
         resolve(this.products)
-      }, 5000)
+      }, 3000)
     })
   }
 
